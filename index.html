@@ -1,0 +1,299 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>ext.isotope</title>
+    <style type="text/css">
+      body, html{
+        padding: 0;
+      }
+      h1{
+        font-family: Helvetica, sans-serif;
+        font-size: 1.2rem;
+      }
+      h3{
+        font-weight: normal;
+        color: hsl(0, 0%, 40%);
+      }
+      i{
+        font-family: Helvetica, sans-serif;
+        font-size: .6rem;
+        color: hsl(0, 0%, 50%);
+      }
+      #example{
+        font-family: monospace;
+        font-size: 1.2rem;
+        text-align: center;
+        padding-top: 50px;
+      }
+      #toggle-button{
+        margin-top: 50px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        background-color: white;
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+      #toggle-button:active{
+        opacity: .4;
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAANklEQVQYlX3KwQ2AMAwEwaP/ouzOhh8K4OSke81eyG7dLcyvKsgRx2DFX/DFVzDhE+wQOSJyA5yYr09jbM4GAAAAAElFTkSuQmCC);
+      }
+
+      .container{
+        margin: 0 auto;
+        margin-top: 20px;
+      }
+      .item{
+        width: 75px;
+        height: 75px;
+        margin: 5px;
+        background: hsla(0, 0%, 0%, .1);
+        float: left;
+        -webkit-background-composite: highlight;
+      }
+
+      .isotope,
+      .isotope .isotope-item {
+          -webkit-transition-property: height, width;
+             -moz-transition-property: height, width;
+              -ms-transition-property: height, width;
+               -o-transition-property: height, width;
+                transition-property: height, width;
+          -webkit-transition-duration: .5s;
+          -moz-transition-duration: .5s;
+          -ms-transition-duration: .5s;
+          -o-transition-duration: .5s;
+          transition-duration: .5s;
+      }
+
+      .normal.isotope,
+      .normal.isotope .isotope-item {
+          -webkit-transition-duration: 1s;
+          -moz-transition-duration: 1s;
+          -ms-transition-duration: 1s;
+          -o-transition-duration: 1s;
+          transition-duration: 1s;
+      }
+
+      .isotope {
+        -webkit-transition-property: height, width;
+           -moz-transition-property: height, width;
+            -ms-transition-property: height, width;
+             -o-transition-property: height, width;
+                //transition-property: height, width;
+      }
+
+      .isotope .isotope-item {
+        -webkit-transition-property: -webkit-transform, opacity;
+           -moz-transition-property:    -moz-transform, opacity;
+            -ms-transition-property:     -ms-transform, opacity;
+             -o-transition-property:         top, left, opacity;
+                transition-property:         transform, opacity;
+          -webkit-transition-timing-function: cubic-bezier(0.860, 0.000, 0.070, 1.000);
+          -moz-transition-timing-function: cubic-bezier(0.860, 0.000, 0.070, 1.000);
+          -ms-transition-timing-function: cubic-bezier(0.860, 0.000, 0.070, 1.000);
+          -o-transition-timing-function: cubic-bezier(0.860, 0.000, 0.070, 1.000);
+          transition-timing-function: cubic-bezier(0.860, 0.000, 0.070, 1.000);
+      }
+
+      /**** disabling Isotope CSS3 transitions ****/
+
+      .isotope.no-transition,
+      .isotope.no-transition .isotope-item,
+      .isotope .isotope-item.no-transition {
+        -webkit-transition-duration: 0s;
+           -moz-transition-duration: 0s;
+            -ms-transition-duration: 0s;
+             -o-transition-duration: 0s;
+                //transition-duration: 0s;
+      }
+
+      /* End: Recommended Isotope styles */
+      .container-box{
+        width: 49%;
+        opacity: 0;
+        float: left;
+        overflow: hidden;
+        -webkit-transition: opacity 1s cubic-bezier(0.860, 0.000, 0.070, 1.000);
+        -moz-transition: opacity 1s cubic-bezier(0.860, 0.000, 0.070, 1.000);
+        -ms-transition: opacity 1s cubic-bezier(0.860, 0.000, 0.070, 1.000);
+        -o-transition: opacity 1s cubic-bezier(0.860, 0.000, 0.070, 1.000);
+        transition: opacity 1s cubic-bezier(0.860, 0.000, 0.070, 1.000);
+      }
+      .bar{
+        float: left;
+        width: 2%;
+        height: 1px;
+        position: relative;
+      }
+      .bar::after{
+        content: '';
+        display: block;
+        width: 1px;
+        height: 2000px;
+        background: hsla(0, 0%, 0%, .1);
+        position: relative;
+        left: 50%;
+        top: 0px;
+      }
+      .container-box.ready{
+        opacity: 1;
+      }
+      .cf{
+        overflow: hidden;
+      }
+      .cf::before,
+      .cf::after{
+          content: "";
+          display: table;
+      }
+
+      .cf::after{
+          clear: both;
+      }
+      footer small{
+        margin-top: 70px;
+        margin-bottom: 70px;
+        font-size: .9em;
+        display: block;
+        font-family: monospace;
+        text-align: center;
+        color: hsl(0, 0%, 40%);
+      }
+      footer small a{
+        text-decoration: none;
+        font-weight: bold;
+        color: hsl(0, 0%, 20%);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="example">
+      <h1>ext.isotope</h1>
+      <i>Isotope, you are always great.</i>
+      <div>
+        <button id="toggle-button">Shuffle</button>
+      </div>
+      <section class="cf">
+        <div class="container-box">
+          <h3>ext</h3>
+          <div class="container ext">
+            <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div>
+          </div>
+        </div>
+        <div class="bar"></div>
+        <div class="container-box">
+          <h3>original</h3>
+          <div class="container normal">
+            <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div> <div class="item"></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="markdown-body"></div>
+    
+    <footer>
+      <small>by <a href="http://mnmly.com" target="_blank">mnmly</a> / grab it on <a href="http://github.com/mnmly/ext.isotope/">github</a></small>
+    </footer>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://coffeescript.org/extras/coffee-script.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/coreyti/showdown/master/compressed/showdown.js"></script>
+    <script type="text/javascript" src="isotope/jquery.isotope.min.js"></script>
+    <script type="text/javascript" src="ext.isotope.js"></script>
+    <script>
+      /* Isotope centered */
+
+      $.Isotope.prototype._getCenteredMasonryColumns = function() {
+        this.width = this.element.width();
+        
+        var parentWidth = this.element.parent().width();
+                      // i.e. options.masonry && options.masonry.columnWidth
+        var colW = this.options.masonry && this.options.masonry.columnWidth ||
+                      // or use the size of the first item
+                      this.$filteredAtoms.outerWidth(true) ||
+                      // if there's no items, use size of container
+                      parentWidth;
+        
+        var cols = Math.floor( parentWidth / colW );
+        cols = Math.max( cols, 1 );
+
+        // i.e. this.masonry.cols = ....
+        this.masonry.cols = cols;
+        // i.e. this.masonry.columnWidth = ...
+        this.masonry.columnWidth = colW;
+      };
+      
+      $.Isotope.prototype._masonryReset = function() {
+        // layout-specific props
+        this.masonry = {};
+        // FIXME shouldn't have to call this again
+        this._getCenteredMasonryColumns();
+        var i = this.masonry.cols;
+        this.masonry.colYs = [];
+        while (i--) {
+          this.masonry.colYs.push( 0 );
+        }
+      };
+
+      $.Isotope.prototype._masonryResizeChanged = function() {
+        var prevColCount = this.masonry.cols;
+        // get updated colCount
+        this._getCenteredMasonryColumns();
+        return ( this.masonry.cols !== prevColCount );
+      };
+      
+      $.Isotope.prototype._masonryGetContainerSize = function() {
+        var unusedCols = 0,
+            i = this.masonry.cols;
+        // count unused columns
+        while ( --i ) {
+          if ( this.masonry.colYs[i] !== 0 ) {
+            break;
+          }
+          unusedCols++;
+        }
+        
+        return {
+              height : Math.max.apply( Math, this.masonry.colYs ),
+              // fit container to columns that have been used;
+              width : (this.masonry.cols - unusedCols) * this.masonry.columnWidth
+            };
+      };
+    </script>
+
+    <script type="text/coffeescript" id="example-source">
+
+      class Example
+
+        constructor: ->
+          
+          $('.container.ext').isotope()
+          # Disable two-way translation
+          $.data($('.container.normal')[0], 'isTwoWay', no)
+          $('.container.normal').isotope()
+
+          $('.item').each ->
+            
+            randomHue = Math.random() * 360
+            colorVal = (opacity)-> "hsla(#{randomHue}, 70%, 50%, #{opacity})"
+            
+            $(this).css
+              background: colorVal(.1)
+              border: "1px solid #{ colorVal(.3) }"
+
+          $('#toggle-button').click ->
+            $('.container').isotope('shuffle')
+        
+      # onLoad
+      $ ->
+        $('.container-box').addClass 'ready'
+        window.example = example = new Example
+    </script>
+  </body>
+</html>
